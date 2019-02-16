@@ -183,7 +183,7 @@ const fightEnemy = (hero, enemy) => {
         enemy.health = 0;
     }
     else if (hero.health <= 0) {
-       result.innerHTML = `Sorry, try again`;
+       result.innerHTML = `You were heroically killed by ${enemy.name}`;
        tryAgain.classList.add(`show`);
     } else if (enemy.health <=0) {
         enemy.health = 0;

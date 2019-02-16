@@ -68,6 +68,7 @@ bagImage.addEventListener(`click`, () => {
 });
 
 const form = document.querySelector(`form`);
+const statsContainer = document.querySelector(`.stats-container`);
 const changeName = (character) => {
   const newName = document.querySelector(`#name`).value;
   character.name = newName;
@@ -75,13 +76,18 @@ const changeName = (character) => {
 }
 
 form.addEventListener(`submit`, (event) => {
+console.log(statsContainer);
   event.preventDefault();
   changeName(hero);
+  statsContainer.innerHTML = '';
   displayStats(hero);
   form.reset();
 });
 
 const displayStats = (hero) => {
   const template = `<p class="name"> name: ${hero.name} </p> <p> health: ${hero.health} </p> <p> weapon type: ${hero.weapon.type} </p> weapon damage: ${hero.weapon.damage} <p> </p>`
-  container.insertAdjacentHTML(`beforebegin`, template);
+  statsContainer.insertAdjacentHTML(`beforeend`, template);
 }
+
+
+displayStats(hero);

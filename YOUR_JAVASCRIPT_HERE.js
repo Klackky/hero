@@ -181,6 +181,7 @@ const fightEnemy = (hero, enemy) => {
         result.innerHTML = `You killed each other`
         hero.health = 0;
         enemy.health = 0;
+        tryAgain.classList.add(`show`);
     }
     else if (hero.health <= 0) {
        result.innerHTML = `You were heroically killed by ${enemy.name}`;

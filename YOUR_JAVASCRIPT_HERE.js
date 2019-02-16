@@ -52,7 +52,7 @@ const enemies = [
     {
         name: `Michael Myers`,
         health: 10,
-        weakness: `feets`,
+        weakness: `feet`,
         weapon: {
             type: `Chef's knife`,
             damage: 3

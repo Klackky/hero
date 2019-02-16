@@ -1,3 +1,21 @@
 img {
     width: 400px;
 }
+
+.try-again__button {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+main {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.change-name {
+    display: flex;
+    justify-content: center;
+}

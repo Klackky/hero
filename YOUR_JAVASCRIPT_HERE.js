@@ -11,10 +11,70 @@ const hero = {
     }
 };
 
+const enemies = [
+    {
+        name: `Voldemort`,
+        health: 10,
+        weakness: `eyes`,
+        weapon: {
+            type: `magic wand`,
+            damage: 2
+        }
+
+    },
+    {
+        name: `Chicken`,
+        health: 10,
+        weakness: `head`,
+        weapon: {
+            type: `feet`,
+            damage: 1
+        }
+    },
+    {
+        name: `Freddy krueger`,
+        health: 10,
+        weakness: `hands`,
+        weapon: {
+            type: `Bladed work glove`,
+            damage: 5
+        }
+    },
+    {
+        name: `Jason Voorhees`,
+        health: 10,
+        weakness: `head`,
+        weapon: {
+            type: `Knife`,
+            damage: 3
+        }
+    },
+    {
+        name: `Michael Myers`,
+        health: 10,
+        weakness: `feets`,
+        weapon: {
+            type: `Chef's knife`,
+            damage: 3
+        }
+    },
+    {
+        name: `Darth Vader`,
+        health: 10,
+        weakness: `head`,
+        weapon: {
+            type: `Lightsaber`,
+            damage: 5
+        }
+    }
+
+]
+
 //container for images
 const container = document.createElement(`div`);
+const main = document.querySelector(`main`);
 container.setAttribute(`id`, `container`);
-document.body.appendChild(container);
+main.appendChild(container);
 
 
 // rest funtion + UI
@@ -30,6 +90,7 @@ const rest = (character) => {
 
 imageRest.addEventListener(`click`, () => {
     rest(hero);
+    displayStats(hero);
 });
 
 
@@ -65,10 +126,13 @@ container.appendChild(bagImage);
 
 bagImage.addEventListener(`click`, () => {
   equipWeapon(hero);
+  displayStats(hero);
 });
 
 const form = document.querySelector(`form`);
 const statsContainer = document.querySelector(`.stats-container`);
+const enemyContainer = document.querySelector(`.enemy-container`);
+let randomEnemyNumber;
 const changeName = (character) => {
   const newName = document.querySelector(`#name`).value;
   character.name = newName;
@@ -79,15 +143,76 @@ form.addEventListener(`submit`, (event) => {
 console.log(statsContainer);
   event.preventDefault();
   changeName(hero);
-  statsContainer.innerHTML = '';
   displayStats(hero);
   form.reset();
 });
 
 const displayStats = (hero) => {
+  
   const template = `<p class="name"> name: ${hero.name} </p> <p> health: ${hero.health} </p> <p> weapon type: ${hero.weapon.type} </p> weapon damage: ${hero.weapon.damage} <p> </p>`
-  statsContainer.insertAdjacentHTML(`beforeend`, template);
+  if(hero.heroic) {
+    statsContainer.innerHTML = '';
+    statsContainer.insertAdjacentHTML(`beforeend`, template);
+  } else {
+    enemyContainer.innerHTML = ``;
+    enemyContainer.insertAdjacentHTML(`beforeend`, template);
+  }
+  
 }
 
+//fight
+
+const getEnemyButton = document.querySelector(`.getEnemy`);
+const hitButtons = Array.from(document.querySelectorAll(`.fight`));
+const result = document.querySelector(`.result`);
+const tryAgain = document.querySelector(`.try-again__button`);
+
+const fightEnemy = (hero, enemy) => {
+    if (hero.health >= 0 && enemy.health >= 0) {
+        if(event.currentTarget.classList.contains(enemy.weakness)) {
+            enemy.health = enemy.health - hero.weapon.damage * 2;
+        } else {
+        enemy.health = enemy.health - hero.weapon.damage;
+    }
+    console.log(enemy.health);
+    hero.health = hero.health - enemy.weapon.damage; 
+    console.log(hero.health);
+    } if (hero.health <= 0) {
+       result.innerHTML = `Sorry, you are lost`;
+       tryAgain.classList.add(`show`);
+    } if (enemy.health <=0) {
+        enemy.health = 0;
+        enemies.splice(randomEnemyNumber, 1);
+        result.innerHTML = `${enemy.name} was killed!`;
+    }
+   
+}
+
+hitButtons.forEach(button => {
+    button.addEventListener(`click`, (event) => {
+        fightEnemy(hero, randomEnemy);
+        displayStats(hero);
+        displayStats(randomEnemy);
+    });
+})
+
+
+getEnemyButton.addEventListener(`click`, () => {
+    randomEnemyNumber = Math.floor(Math.random() * enemies.length)
+    randomEnemy = enemies[randomEnemyNumber];
+    displayStats(randomEnemy);
+});
+
+
+tryAgain.addEventListener(`click`, () => {
+    randomEnemyNumber = Math.floor(Math.random() * enemies.length)
+    tryAgain.classList.remove(`show`);
+    result.innerHTML = "";
+    hero.health = 10;
+    randomEnemy = enemies[randomEnemyNumber];
+    randomEnemy.health = 10;
+    displayStats(randomEnemy);
+    displayStats(hero);
+})
 
 displayStats(hero);

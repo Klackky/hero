@@ -1,34 +1,56 @@
 <html>
+
 <head>
-    <meta charset="utf-8">
-    <title>Mocha Tests</title>
-    <link href="https://unpkg.com/mocha@4.0.1/mocha.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" media="screen" href="index.css">
+  <meta charset="utf-8">
+  <title>Mocha Tests</title>
+  <link href="https://unpkg.com/mocha@4.0.1/mocha.css" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" media="screen" href="index.css">
 </head>
+
 <body>
 
 
   <!-- YOUR HTML HERE -->
+  <main>
+    <form class="change-name">
+      <div class="change-name__container">
+        <label for="name"> Introduce yourself </label>
+        <input id="name" type="text">
+      </div>
+      <button type="submit"> That`s me! </button>
+    </form>
+    <button class="getEnemy" type="button">Get the enemy!</button>
+    <div class="stats-container">
+    </div>
+    <div class="enemy-container">
+    </div>
+    <div class="fight-form">
+      <p> Choose where you are want to hit your enemy</p>
+      <button class="fight body" type="button">Body</button>
+      <button class="fight head" type="button">Head</button>
+      <button class="fight feets" type="button">Feets</button>
+      <button class="fight hands" type="button">Hands</button>
+      <button class="fight eyes" type="button">Eyes</button>
+      <p class="result"> </p>
+      <div class="try-again">
+        <button class="try-again__button"> Try again! </button>
+      </div>
+    </div>
+    <!-- I RECOMMEND YOU LEAVE THE REST UNTOUCHED -->
+    <button onclick="mocha.checkLeaks(); mocha.run();">Run the tests!</button>
+    <div id="mocha"></div>
 
-   <form class="change-name">
-     <div class="change-name__container"> 
-       <label for="name"> Introduce yourself </label>
-       <input id="name" type="text"> 
-     </div>
-     <button type="submit"> That`s me! </button>
-   </form>
-   <div class="stats-container"> 
-   </div>
-  <!-- I RECOMMEND YOU LEAVE THE REST UNTOUCHED -->
-  <button onclick="mocha.checkLeaks(); mocha.run();">Run the tests!</button>
-  <div id="mocha"></div>
+    <script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
+    <script src="https://unpkg.com/mocha@4.0.1/mocha.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sinon@3/pkg/sinon.js"></script>
+    <script>
+      mocha.setup('bdd')
+    </script>
+    <script src="YOUR_JAVASCRIPT_HERE.js"></script>
+    <script src="game_logic.test.js"></script>
+  </main>
 
-  <script src="https://unpkg.com/chai@4.1.2/chai.js"></script>
-  <script src="https://unpkg.com/mocha@4.0.1/mocha.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/sinon@3/pkg/sinon.js"></script>
-  <script>mocha.setup('bdd')</script>
-  <script src="YOUR_JAVASCRIPT_HERE.js"></script>
-  <script src="game_logic.test.js"></script>
 
 </body>
+
 </html>

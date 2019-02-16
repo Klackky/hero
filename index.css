@@ -4,10 +4,16 @@ img {
 
 .try-again__button {
     display: none;
+    margin: 20px auto;
+}
+
+.fight-form {
+    display: none;
 }
 
 .show {
     display: block;
+    text-align: center;
 }
 
 main {
@@ -19,3 +25,4 @@ main {
     display: flex;
     justify-content: center;
 }
+

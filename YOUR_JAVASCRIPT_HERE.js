@@ -132,6 +132,7 @@ bagImage.addEventListener(`click`, () => {
 const form = document.querySelector(`form`);
 const statsContainer = document.querySelector(`.stats-container`);
 const enemyContainer = document.querySelector(`.enemy-container`);
+const fightForm = document.querySelector(`.fight-form`);
 let randomEnemyNumber;
 const changeName = (character) => {
   const newName = document.querySelector(`#name`).value;
@@ -168,19 +169,23 @@ const result = document.querySelector(`.result`);
 const tryAgain = document.querySelector(`.try-again__button`);
 
 const fightEnemy = (hero, enemy) => {
-    if (hero.health >= 0 && enemy.health >= 0) {
+    if (hero.health > 0 && enemy.health > 0) {
         if(event.currentTarget.classList.contains(enemy.weakness)) {
             enemy.health = enemy.health - hero.weapon.damage * 2;
         } else {
         enemy.health = enemy.health - hero.weapon.damage;
     }
-    console.log(enemy.health);
     hero.health = hero.health - enemy.weapon.damage; 
-    console.log(hero.health);
-    } if (hero.health <= 0) {
-       result.innerHTML = `Sorry, you are lost`;
+    } 
+    if (hero.health <= 0 && enemy.health <= 0) {
+        result.innerHTML = `You killed each other`
+        hero.health = 0;
+        enemy.health = 0;
+    }
+    else if (hero.health <= 0) {
+       result.innerHTML = `Sorry, try again`;
        tryAgain.classList.add(`show`);
-    } if (enemy.health <=0) {
+    } else if (enemy.health <=0) {
         enemy.health = 0;
         enemies.splice(randomEnemyNumber, 1);
         result.innerHTML = `${enemy.name} was killed!`;
@@ -200,6 +205,7 @@ hitButtons.forEach(button => {
 getEnemyButton.addEventListener(`click`, () => {
     randomEnemyNumber = Math.floor(Math.random() * enemies.length)
     randomEnemy = enemies[randomEnemyNumber];
+    fightForm.classList.add(`show`);
     displayStats(randomEnemy);
 });
 

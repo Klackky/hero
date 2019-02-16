@@ -11,11 +11,17 @@ const hero = {
     }
 };
 
+//container for images
+const container = document.createElement(`div`);
+container.setAttribute(`id`, `container`);
+document.body.appendChild(container);
+
 
 // rest funtion + UI
 const imageRest = document.createElement(`img`);
 imageRest.setAttribute(`id`, `inn`);
-document.body.appendChild(imageRest);
+imageRest.setAttribute(`src`, `https://www.carrgolf.com/wp-content/uploads/2016/11/Dromoland.jpg`);
+container.appendChild(imageRest);
 
 const rest = (character) => {
    character.health = 10;
@@ -30,7 +36,8 @@ imageRest.addEventListener(`click`, () => {
 // pickUpItem function + UI
 const imagePickUpItem = document.createElement(`img`);
 imagePickUpItem.setAttribute(`id`, `dagger`);
-document.body.appendChild(imagePickUpItem);
+imagePickUpItem.setAttribute(`src`, `https://www.darksword-armory.com/wp-content/uploads/2014/09/medieval-knight-dagger-1801.jpg`);
+container.appendChild(imagePickUpItem);
 
 const pickUpItem = (character, weapon) => {
   weapon.type = `dagger`;
@@ -53,8 +60,28 @@ const equipWeapon = (character) => {
 
 const bagImage = document.createElement(`img`);
 bagImage.setAttribute(`id`, `bag`);
-document.body.appendChild(bagImage);
+bagImage.setAttribute(`src`, `https://cdn.notonthehighstreet.com/fs/c2/89/79d3-29de-47d6-bb2a-3618f84dbbaa/original_avocardio-funny-gym-bag.jpg`);
+container.appendChild(bagImage);
 
 bagImage.addEventListener(`click`, () => {
   equipWeapon(hero);
 });
+
+const form = document.querySelector(`form`);
+const changeName = (character) => {
+  const newName = document.querySelector(`#name`).value;
+  character.name = newName;
+  return character;
+}
+
+form.addEventListener(`submit`, (event) => {
+  event.preventDefault();
+  changeName(hero);
+  displayStats(hero);
+  form.reset();
+});
+
+const displayStats = (hero) => {
+  const template = `<p class="name"> name: ${hero.name} </p> <p> health: ${hero.health} </p> <p> weapon type: ${hero.weapon.type} </p> weapon damage: ${hero.weapon.damage} <p> </p>`
+  container.insertAdjacentHTML(`beforebegin`, template);
+}
